@@ -147,3 +147,103 @@ Array.prototype.myEntries = function() {
 }
 
 console.log(arr.myEntries());
+
+
+
+// 11. myReverse()
+Array.prototype.myReverse = function(){
+    for(let i=0;i<Math.floor(this.length/2);i++){
+        const temp = this[i];
+        this[i] = this[this.length-1-i];
+        this[this.length-1-i] = temp;
+    }
+    return this;
+}
+
+// console.log(arr.myReverse());
+
+
+
+// 12. mySlice()
+Array.prototype.mySlice = function(start, end){
+    const result = [];
+    if(start === undefined && end === undefined){
+        return this.mySlice(0, this.length);
+    }
+    if(end === undefined){
+        end = this.length;
+    }
+    if(end < 0){
+        end = this.length + end;
+    }
+    if(start < 0){
+        start = this.length + start;
+    }
+    for(let i=start;i<end;i++){
+        result.push(this[i]);
+    }
+    return result;
+}
+
+console.log(arr.mySlice(-1))
+console.log(arr.mySlice(1, -1))
+console.log(arr.mySlice())
+// console.log(arr)
+
+
+
+// 13. mySplice()
+Array.prototype.mySplice = function(start, deleteCount, ...items){
+    const deletedItems = [];
+    let i = start;
+    for(;i<start+deleteCount && i<this.length;i++){
+        deletedItems.push(this[i]);
+    }
+    // Shifting elements to the left
+    for(let j=start+deleteCount;j<this.length;j++){
+        this[j-deleteCount] = this[j];
+    }
+    this.length -= deleteCount; //actual array length reduce if no add
+    // Adding new items
+    if(items.length>0){
+        for(let i=this.length-1;i>=start;i--){
+                this[i+items.length] =this[i];
+        }
+        for(let k=0;k<items.length;k++){
+            this[start+k] = items[k];
+        }
+    }
+    // Returning deleted items
+    return deletedItems;
+}
+
+console.log(arr.mySplice(1, 2, 10, 20));
+// console.log(arr.mySplice(1,3))
+console.log(arr);
+
+
+
+// myToString()
+Array.prototype.myToString = function(){
+    let str = '';
+    for(let i=0;i<this.length;i++){
+        str += this[i];
+        if(i !== this.length-1){
+            str += ',';
+        }
+    }
+    return str;
+}
+
+console.log(arr.myToString());
+
+
+
+//! DUE
+//flat, flatMap, join, sort
+
+// myFlat – Flatten nested arrays
+// myFlatMap – Map and flatten
+// myJoin – Join elements into a string
+// mySort – Sort array elements
+// myCopyWithin – Copy part of array within itself
