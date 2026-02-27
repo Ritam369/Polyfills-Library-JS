@@ -223,7 +223,7 @@ console.log(arr);
 
 
 
-// myToString()
+// 14. myToString()
 Array.prototype.myToString = function(){
     let str = '';
     for(let i=0;i<this.length;i++){
@@ -239,11 +239,65 @@ console.log(arr.myToString());
 
 
 
-//! DUE
-//flat, flatMap, join, sort
+// 15. myJoin()
 
-// myFlat – Flatten nested arrays
-// myFlatMap – Map and flatten
-// myJoin – Join elements into a string
-// mySort – Sort array elements
-// myCopyWithin – Copy part of array within itself
+Array.prototype.myJoin = function(separator){
+    let result = '';
+    if(separator === undefined){
+        separator = ',';
+    }
+    for(let i=0;i<this.length;i++){
+        result += this[i];
+        if(i !== this.length-1){
+            result += separator;
+        }
+    }
+    return result;
+}
+
+console.log(arr.myJoin('-'));
+console.log(arr.myJoin());
+console.log(arr.myJoin(''));
+
+
+
+// 16. mySort()
+
+Array.prototype.mySort = function(compareFunction){
+    if(typeof compareFunction !== 'function'){
+        compareFunction = (a, b) => String(a).localeCompare(String(b));
+    }
+    for(let i=0;i<this.length-1;i++){
+        for(let j=i+1;j<this.length;j++){
+            if(compareFunction(this[i], this[j]) > 0){
+                const temp = this[i];
+                this[i] = this[j];
+                this[j] = temp;
+            }
+        }
+    }
+    return this;
+}
+
+console.log(arr.mySort());
+
+
+
+// 17. myFlat()
+
+Array.prototype.myFlat = function(depth = 1){
+    const result = [];
+    const flatten = function(arr, depth) {
+        for(let i=0;i<arr.length;i++){
+            if(Array.isArray(arr[i]) && depth > 0){
+                flatten(arr[i], depth - 1);
+            } else {
+                result.push(arr[i]);
+            }
+        }
+    }
+    flatten(this, depth);
+    return result;
+}
+
+console.log([1,2,3,4,5,[6,7,8,[9,10]]].myFlat(Infinity));

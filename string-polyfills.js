@@ -1,6 +1,10 @@
 //1. firstCap
 String.prototype.firstCap = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1,this.length);
+    let charCode = this.charCodeAt(0);
+    if(charCode >= 97 && charCode <= 122) {
+        return String.fromCharCode(charCode - 32) + this.slice(1);
+    }
+    return this;
 }
 
 console.log("ritam".firstCap()); // Output: Ritam
@@ -9,7 +13,12 @@ console.log("ritam".firstCap()); // Output: Ritam
 
 //2. lastCap
 String.prototype.lastCap = function() {
-    return this.slice(0,this.length-1) + this.charAt(this.length-1).toUpperCase();
+    let charCode = this.charCodeAt(this.length - 1);
+    if(charCode >= 97 && charCode <= 122) {
+        return this.slice(0, this.length - 1) + String.fromCharCode(charCode - 32);
+    }
+    return this;
+    // return this.slice(0,this.length-1) + this.charAt(this.length-1).toUpperCase();
 }
 
 console.log("ritam".lastCap()); // Output: ritaM
